@@ -13,32 +13,32 @@ export default function LoginPage({setNrpG, setIslogin} : {setNrpG:any,  setIslo
      e.preventDefault()   // ⬅️ ini penting banget
      setLoading(true)
 
-  alert("test")
+  // alert("test")
   try {
 
     const response = await axios.get(`https://script.google.com/macros/s/AKfycbzJrsjEjgd4S-RPATlhmFWF-b8l3pneqTlgJIUZi6L7vALfxGOiI8u-nnG4131jQkPh/exec?action=detail&nrps=${username}`);
-    alert(username)
+    // alert(username)
     
     if(username != password){
-        alert('password/username salah')
+        // alert('password/username salah')
         setLoading(false)
     }
     else if(response){
     if(response.data && response.data.data.length > 0){
-        alert('password benar')
+        // alert('password benar')
         setIslogin(true)
         setNrpG(response.data.data[0].nrp)
         setLoading(false)
 
     }
     else{
-        alert('password/username salah')
+        // alert('password/username salah')
         setLoading(false)
 
     }
 }
 else{
-    alert("keren")
+    // alert("keren")
 }
   }catch (e){
     console.log(e)

@@ -9,13 +9,16 @@ export default function DataKesjas({nrpG}:{nrpG:string}) {
 
   const [loading,setLoading] = useState(true)
     const [staft, setStaft] = useState([])
+    const [hist, setHist] = useState([])
   // Want to use async/await? Add the `async` keyword to your outer function/method.
 async function getStaft() {
   try {
-    const response = await axios.get(`https://script.google.com/macros/s/AKfycbzJrsjEjgd4S-RPATlhmFWF-b8l3pneqTlgJIUZi6L7vALfxGOiI8u-nnG4131jQkPh/exec?action=detail&nrps=${nrpG}`);
+    const url = "https://script.google.com/macros/s/AKfycbxe-jH-DF67vuVkEBNBCzSD6JL1eiBEPypGmXtKKQUjBwy5BZOhjKZiP_XW3t5xSO4/exec"
+    const response = await axios.get(`${url}?action=detail&nrps=${nrpG}`);
     const data = response.data.data[0]
     console.log("stafff us",data)
     setStaft(response.data.data)
+    setHist(response.data.history)
     setLoading(false)
   }catch (e){
     console.log(e)
@@ -26,11 +29,6 @@ useEffect(()=>{
     getStaft()
 },[])
 
-  const history = [
-    { triwulan: "Triwulan I", jarak: "3000 m" },
-    { triwulan: "Triwulan II", jarak: "3100 m" },
-    { triwulan: "Triwulan III", jarak: "3150 m" },
-  ];
 
   return (
     <>
@@ -75,8 +73,8 @@ useEffect(()=>{
             <Card title="Pull Up" value={item.pull_up+"x"} color="green" />
             <Card title="Push Up" value={item.push_up+"x"} color="red" />
             <Card title="Sit Up" value={item.sit_up+"x"} color="yellow" />
-            <Card title="Settle Run" value={item.settle_run+"m"} color="purple" />
-            <Card title="Renang Militer" value={item.renang_militer+"m"} color="indigo" />
+            <Card title="Settle Run" value={item.settle_run} color="purple" />
+            <Card title="Renang Militer (50 Meter)" value={item.renang_militer} color="indigo" />
 
         </div>
 
@@ -107,15 +105,25 @@ useEffect(()=>{
             <table className="w-full border rounded-lg overflow-hidden text-sm md:text-base">
                 <thead className="bg-gray-200">
                 <tr>
+                    <th className="p-3 text-left">Lari</th>
+                    <th className="p-3 text-left">Pull Up</th>
+                    <th className="p-3 text-left">Push Up</th>
+                    <th className="p-3 text-left">Sit Up</th>
+                    <th className="p-3 text-left">Settle Run</th>
+                    <th className="p-3 text-left">Renang Militer (50 M)</th>
                     <th className="p-3 text-left">Triwulan</th>
-                    <th className="p-3 text-left">Jarak Lari</th>
                 </tr>
                 </thead>
                 <tbody className="bg-white divide-y">
-                {history.map((item, index) => (
-                    <tr key={index}>
-                    <td className="p-3">{item.triwulan}</td>
-                    <td className="p-3 font-semibold">{item.jarak}</td>
+                {hist.map((item : any, key:number) => (
+                    <tr key={key}>
+                    <td className="p-3">{item.lari+"m"}</td>
+                    <td className="p-3 font-semibold">{item.pull_up+"x"}</td>
+                    <td className="p-3 font-semibold">{item.push_up+"x"}</td>
+                    <td className="p-3 font-semibold">{item.sit_up+"x"}</td>
+                    <td className="p-3 font-semibold">{item.settle_run}</td>
+                    <td className="p-3 font-semibold">{item.renang_militer}</td>
+                    <td className="p-3 font-semibold">{item.triwulan}</td>
                     </tr>
                 ))}
                 </tbody>
