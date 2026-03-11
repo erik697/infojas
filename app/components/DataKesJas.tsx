@@ -13,7 +13,7 @@ export default function DataKesjas({nrpG}:{nrpG:string}) {
   // Want to use async/await? Add the `async` keyword to your outer function/method.
 async function getStaft() {
   try {
-    const url = "https://script.google.com/macros/s/AKfycbxe-jH-DF67vuVkEBNBCzSD6JL1eiBEPypGmXtKKQUjBwy5BZOhjKZiP_XW3t5xSO4/exec"
+    const url = "https://script.google.com/macros/s/AKfycbxA1pIEXRnU4FNqL_MaSlPFQAI6665X9EWz5nXOSFoG8cV_YwAMwRSA9vN5EyrMxtXS/exec"
     const response = await axios.get(`${url}?action=detail&nrps=${nrpG}`);
     const data = response.data.data[0]
     console.log("stafff us",data)
@@ -69,12 +69,49 @@ useEffect(()=>{
         {/* Data Utama */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
 
-            <Card title="Lari" value={item.lari+" m"} color="blue" />
-            <Card title="Pull Up" value={item.pull_up+"x"} color="green" />
-            <Card title="Push Up" value={item.push_up+"x"} color="red" />
-            <Card title="Sit Up" value={item.sit_up+"x"} color="yellow" />
-            <Card title="Settle Run" value={item.settle_run} color="purple" />
-            <Card title="Renang Militer (50 Meter)" value={item.renang_militer} color="indigo" />
+
+              <div className={`bg-blue-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Lari</p>
+                <h2 className={`text-2xl font-bold text-blue-600`}>
+                  {item.lari+" m"}
+                </h2>
+              </div>
+              <div className={`bg-green-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Pull Up</p>
+                <h2 className={`text-2xl font-bold text-green-600`}>
+                 
+                  {item.pull_up+"x"}
+                </h2>
+              </div>
+              <div className={`bg-blue-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Push Up</p>
+                <h2 className={`text-2xl font-bold text-blue-600`}>
+                  
+                   {item.push_up+"x"}
+                </h2>
+              </div>
+              <div className={`bg-red-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Sit Up</p>
+                <h2 className={`text-2xl font-bold text-red-600`}>
+                 
+                  {item.sit_up+"x"}
+                </h2>
+              </div>
+              <div className={`bg-yellow-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Settle Run</p>
+                <h2 className={`text-2xl font-bold text-yellow-600`}>
+                  
+                  {item.settle_run}
+                </h2>
+              </div>
+              <div className={`bg-purple-50 p-4 rounded-xl text-center`}>
+                <p className="text-gray-500 text-sm">Renang Militer (50 M)</p>
+                <h2 className={`text-2xl font-bold text-purple-600`}>
+                  
+                   {item.renang_militer}
+                </h2>
+              </div>
+                 
 
         </div>
 
@@ -139,14 +176,3 @@ useEffect(()=>{
 }
 
 /* Reusable Card Component */
-function Card({ title, value, color }: any) {
-    
-  return (
-    <div className={`bg-${color}-50 p-4 rounded-xl text-center`}>
-      <p className="text-gray-500 text-sm">{title}</p>
-      <h2 className={`text-2xl font-bold text-${color}-600`}>
-        {value}
-      </h2>
-    </div>
-  );
-}

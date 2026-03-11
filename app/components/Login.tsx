@@ -8,6 +8,7 @@ export default function LoginPage({setNrpG, setIslogin} : {setNrpG:any,  setIslo
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const url = "https://script.google.com/macros/s/AKfycbxA1pIEXRnU4FNqL_MaSlPFQAI6665X9EWz5nXOSFoG8cV_YwAMwRSA9vN5EyrMxtXS/exec";
 
   const loginHandler = async (e:any)=>{
      e.preventDefault()   // ⬅️ ini penting banget
@@ -16,7 +17,8 @@ export default function LoginPage({setNrpG, setIslogin} : {setNrpG:any,  setIslo
   // alert("test")
   try {
 
-    const response = await axios.get(`https://script.google.com/macros/s/AKfycbzJrsjEjgd4S-RPATlhmFWF-b8l3pneqTlgJIUZi6L7vALfxGOiI8u-nnG4131jQkPh/exec?action=detail&nrps=${username}`);
+    
+    const response = await axios.get(`${url}?action=detail&nrps=${username}`);
     // alert(username)
     
     if(username != password){
@@ -25,10 +27,14 @@ export default function LoginPage({setNrpG, setIslogin} : {setNrpG:any,  setIslo
     }
     else if(response){
     if(response.data && response.data.data.length > 0){
+      const res = await axios.get(`${url}?action=addlogin&username=${username}`);
         // alert('password benar')
-        setIslogin(true)
+        if(res){
+setIslogin(true)
         setNrpG(response.data.data[0].nrp)
         setLoading(false)
+        }
+        
 
     }
     else{
